@@ -57,3 +57,11 @@ INSERT IGNORE INTO users(username,password,enabled) VALUES ('admin','{noop}admin
 INSERT IGNORE INTO roles (username, role) VALUES ('admin', 'ROLE_OWNER_ADMIN');
 INSERT IGNORE INTO roles (username, role) VALUES ('admin', 'ROLE_VET_ADMIN');
 INSERT IGNORE INTO roles (username, role) VALUES ('admin', 'ROLE_ADMIN');
+
+-- insert into pet_treatment table for columns  id, pet_id ,vet_id ,specialty_id ,treatment_date, description
+INSERT IGNORE INTO pet_treatment VALUES (1, 1, 2, 1, '2019-01-01', 'treatment 1');
+INSERT IGNORE INTO pet_treatment VALUES (2, 1, 2, 1, '2019-01-02', 'treatment 2');
+
+
+ 
+

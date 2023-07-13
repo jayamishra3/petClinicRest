@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.samples.petclinic.exception.PetTreatmentNotFoundException;
 import org.springframework.samples.petclinic.rest.controller.BindingErrorsResponse;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,6 +39,23 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @ControllerAdvice
 public class ExceptionControllerAdvice {
+
+    /*add exception handler for PetTreatmentNotFoundException returning responseEntity of type String*/
+
+    @ExceptionHandler(PetTreatmentNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public   ResponseEntity<String> petTreatmentNotFoundHandler(PetTreatmentNotFoundException ex) {
+        ObjectMapper mapper = new ObjectMapper();
+        ErrorInfo errorInfo = new ErrorInfo(ex);
+        String respJSONstring = "{}";
+        try {
+            respJSONstring = mapper.writeValueAsString(errorInfo);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respJSONstring);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> exception(Exception e) {
